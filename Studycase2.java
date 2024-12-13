@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Studycase2 {
     static String[] daftarMenu = {"Kopi Hitam", "Latte", "Cappucino", "Espresso", "Green Tea"};
     static int [] hargaMenu = {10000, 15000, 17000, 20000, 12000};
@@ -8,10 +9,95 @@ public class Studycase2 {
     static int[] totalHargaPesanan = new int[100];
     static int jumlahPesanan = 0;
     
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int pilihan;
+        do {
+            tampilkanMenuUtama();
+            System.out.print("Pilih menu Di Mbelodos Kafe: ");
+            pilihan = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (pilihan) {
+                case 1:
+                    tambahPesanan();
+                    break;
+                case 2:
+                    tampilkanPesanan();
+                    break;
+                case 3:
+                    System.out.println("Terima kasih telah menggunakan sistem manajemen Bledos Kafe!");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid, coba lagi.");
+            }
+        } while (pilihan != 3);
+    }
     public static void tampilkanMenuUtama() {
         System.out.println("\n== Sistem Manajemen Bledos Cafe");
         System.out.println("1. Tambah Pesanan");
         System.out.println("2. Tampikan Semua Pesanan");
         System.out.println("3. Keluar");
+    }
+    public static void tambahPesanan() {
+        Scanner scanner = new Scanner(System.in);
+        if (jumlahPesanan >= 100) {
+            System.out.println("Pesanan penuh! Tidak dapat menambah pesanan baru.");
+            return;
+        }
+        int jumlahItem;
+        System.out.print("Masukkan nama pelanggan: ");
+        String nama = scanner.nextLine();
+
+        System.out.print("Masukkan nomor meja: ");
+        int meja = scanner.nextInt();
+        scanner.nextLine();
+
+        do {
+            // Input nama menu atau selesai
+            System.out.println("\n====== Menu Kafe Bledos ======");
+            for (int i = 0; i < daftarMenu.length; i++) {
+                System.out.println((i + 1) + ". " + daftarMenu[i] + " - Rp " + hargaMenu[i]);
+            }
+            System.out.print("Masukkan nomor menu (1-5) atau ketik '0' untuk selesai: ");
+            int menu = scanner.nextInt();
+            scanner.nextLine(); // Konsumsi newline
+
+            if (menu == 0) {
+                System.out.println("Proses menambahkan menu selesai.");
+                return;
+            }
+
+            // Validasi nama menu
+            if (menu < 1 || menu> daftarMenu.length) {
+                System.out.println("Nomor menu tidak valid. Masukkan nomor yang sesuai daftar.");
+            } else {
+                // Validasi jumlah item
+                do {
+                    System.out.print("Masukkan jumlah item (lebih dari 0): ");
+                    jumlahItem = scanner.nextInt();
+                    scanner.nextLine(); // Konsumsi newline
+                    if (jumlahItem <= 0) {
+                        System.out.println("Jumlah item harus lebih dari 0.");
+                    }
+                } while (jumlahItem <= 0);
+                // Simpan data pesanan
+                namaPelanggan[jumlahPesanan] = nama;
+                nomorMeja[jumlahPesanan] = meja;
+                namaMenuPesanan[jumlahPesanan] = daftarMenu[menu-1];
+                jumlahItemPesanan[jumlahPesanan] = jumlahItem;
+                totalHargaPesanan[jumlahPesanan] = jumlahItem * hargaMenu[menu-1];
+                jumlahPesanan++;
+                System.out.println("Pesanan berhasil ditambahkan!");
+            }
+        } while (true);
+    }
+    public static int cariMenu(String menu) {
+        for (int i = 0; i < daftarMenu.length; i++) {
+            if (daftarMenu[i].equalsIgnoreCase(menu)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
