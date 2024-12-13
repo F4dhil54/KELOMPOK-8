@@ -7,9 +7,7 @@ public class Studycase2 {
     static int[] jumlahItemPesanan = new int[100];
     static int[] totalHargaPesanan = new int[100];
     static int jumlahPesanan = 0;
-    public static void main(String[] args) {
-        tampilkanMenuUtama();
-    }
+    
     public static void tampilkanMenuUtama() {
         System.out.println("\n== Sistem Manajemen Bledos Cafe");
         System.out.println("1. Tambah Pesanan");
