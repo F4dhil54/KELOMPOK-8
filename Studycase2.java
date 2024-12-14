@@ -100,4 +100,30 @@ public class Studycase2 {
         }
         return -1;
     }
+    public static void tampilkanPesanan(){
+        if (jumlahPesanan == 0) {
+            System.out.println("belum ada pesanan yang tercatat.");
+            return;
+        }
+        System.out.println("===== Daftar Semua Pesanan =====");
+        boolean [] sudahDitampilkan = new boolean[jumlahPesanan];
+        for (int i = 0; i < jumlahPesanan; i++) {
+            if (!sudahDitampilkan[i]) {
+                String nama = namaPelanggan[i];
+                System.out.println("Nama Pelanggan : " + namaPelanggan);
+                System.out.println("Nomor Meja : " + nomorMeja[i]);
+                System.out.println("Pesanan : ");
+                int totalPembayaran = 0;
+                for (int j = 0; j < jumlahPesanan; j++){
+                    if (namaPelanggan[j].equals(nama) && !sudahDitampilkan[j]) {
+                        System.out.println("- " + namaMenuPesanan[j] + " x " + jumlahItemPesanan[j] + " @ Rp " + (totalHargaPesanan[j] / jumlahItemPesanan[j]) + " = Rp " + totalHargaPesanan[j]);
+                        totalPembayaran += totalHargaPesanan[j];
+                        sudahDitampilkan[j] = true;
+                    }
+                }
+                System.out.println("Total Pembayaran: Rp " + totalPembayaran);
+                System.out.println("------------------------");     
+            }
+        }
+    }
 }
